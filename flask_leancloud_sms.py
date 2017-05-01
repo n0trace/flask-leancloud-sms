@@ -8,15 +8,16 @@ class Leancloud_Sms(object):
     def init_app(self,app):
         self._app_id = app.config.get('LEANCLOUD_APP_ID', '')
         self._app_key = app.config.get('LEANCLOUD_APP_KEY', '')
-        self._request_sms_code_url = app.config.get('REQUEST_SMS_CODE_URL ', 'https://api.leancloud.cn/1.1/requestSmsCode')
-        self._verify_sms_code_url = app.config.get('VERIFY_SMS_CODE_URL ', 'https://api.leancloud.cn/1.1/verifySmsCode/')
+        self._request_sms_code_url = app.config.get('REQUEST_SMS_CODE_URL', 'https://api.leancloud.cn/1.1/requestSmsCode')
+        self._verify_sms_code_url = app.config.get('VERIFY_SMS_CODE_URL', 'https://api.leancloud.cn/1.1/verifySmsCode/')
+        self._send_sms_type = app.config.get('SEND_SMS_TYPE', 'sms')
         
         self._headers = {
             "X-LC-Id": 'self._app_id',
             "X-LC-Key": 'self._app_key',
             "Content-Type": "application/json",
         }
-    def send_message(phone):
+    def send_message(phone,smsType='sms',countryCode='CN',template=None,**argv):
         """
         通过 POST 请求 requestSmsCode API 发送验证码到指定手机
         :param phone: 通过网页表单获取的电话号
@@ -24,7 +25,13 @@ class Leancloud_Sms(object):
         """
         data = {
             "mobilePhoneNumber": phone,
+            "smsType":sms_type,
+            "countryCode":country_code,
         }
+        if template is not None:
+            data['template']=template,
+            data=dict(data,argv)
+        
         # post 方法参数包含三部分，如我们之前分析 API 所述
         # REQUEST_SMS_CODE_URL: 请求的 URL
         # data: 请求的内容，另外要将内容编码成 JSON 格式

@@ -9,13 +9,13 @@ setup(
     author_email='n0trace@protonmail.com',
     description='Leancloud SMS Service for Flask',
     long_description=__doc__,
-    py_modules=['flask_leancloud-sms'],
-    packages=['requests','flask'],
+    py_modules=['flask_leancloud_sms'],
+    # packages=['requests','flask'],
     zip_safe=False,
     include_package_data=True,
     platforms='any',
     install_requires=[
-        'Flask'
+        'flask','requests'
     ],
     classifiers=[
         'Environment :: Web Environment',
