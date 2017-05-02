@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 import requests
 class Leancloud_Sms(object):
     def __init__(self, app=None):
@@ -12,11 +13,11 @@ class Leancloud_Sms(object):
         self._verify_sms_code_url = app.config.get('VERIFY_SMS_CODE_URL', 'https://api.leancloud.cn/1.1/verifySmsCode/')
         
         self._headers = {
-            "X-LC-Id": 'self._app_id',
-            "X-LC-Key": 'self._app_key',
+            "X-LC-Id": self._app_id,
+            "X-LC-Key": self._app_key,
             "Content-Type": "application/json",
         }
-    def send_message(phone,smsType='sms',countryCode='CN',template=None,**argv):
+    def send_message(self,phone,smsType='sms',countryCode='CN',template=None,**argv):
         """
         通过 POST 请求 requestSmsCode API 发送验证码到指定手机
         :param phone: 电话号
@@ -28,8 +29,8 @@ class Leancloud_Sms(object):
         """
         data = {
             "mobilePhoneNumber": phone,
-            "smsType":sms_type,
-            "countryCode":country_code,
+            "smsType":smsType,
+            "countryCode":countryCode,
         }
         if template is not None:
             data['template']=template,
@@ -46,7 +47,7 @@ class Leancloud_Sms(object):
             return True
         else:
             return False
-    def verify_sms(phone, code):
+    def verify_sms(self,phone, code):
         """
         发送 POST 请求到 verifySmsCode API 获取校验结果
         :param phone: 电话号

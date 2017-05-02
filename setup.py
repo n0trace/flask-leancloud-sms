@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='Flask-leancloud-sms',
+    name='Flask-Leancloud-Sms',
     version='1.0',
     url='http://github.com/n0trace/flask-leancloud-sms/',
     license='MIT',
@@ -15,7 +15,7 @@ setup(
     include_package_data=True,
     platforms='any',
     install_requires=[
-        'flask','requests'
+        'json','flask','requests'
     ],
     classifiers=[
         'Environment :: Web Environment',
